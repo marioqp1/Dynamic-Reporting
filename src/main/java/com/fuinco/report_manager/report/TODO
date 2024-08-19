@@ -1,0 +1,18 @@
+//    TODO
+//    create in mongo db object that have all of the fields
+//    and other object for filters
+//    and object from join request and assign all them with id in mongo db
+Done
+//    Make a mapper for that to assign final object to the report
+//    and when i call report it calls all this attributes
+//    and put them in reportDto  and save report in my sql to connect it with
+//    admin
+//
+//    create API that generate Report with out filter values
+//    maybe i save only filter name and make dto to take the values of the
+//    filters
+//    create API that get the relation of each entity to assign in join
+//    final phase that call generate function
+//    get fields with api for each entity
+//    get the relation between each entity and the other entities
+and get the type of each field
