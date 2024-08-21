@@ -8,6 +8,7 @@ import com.fuinco.report_manager.service.EntityService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 @RestController
@@ -47,6 +48,10 @@ public class EntityController {
     @PostMapping("/field")
     public EntityField createEntityField(@RequestBody EntityField field) {
         return entityFieldsService.create(field);
+    }
+    @GetMapping("/operator/{entity}")
+    public ApiResponse<List<String>> getOperators(@PathVariable String entity, @RequestBody Field field) {
+        return entityService.getEntityFieldOperator(entity, field.getName());
     }
 
 }

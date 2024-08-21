@@ -38,7 +38,7 @@ public class ReportService {
         this.entityRepository = entityRepository;
     }
 
-    //sql creating predicate
+
     private Predicate createPredicate(CriteriaBuilder cb, Root<?> root, Filter filter) {
         String operator = filter.getOperator().toUpperCase();
         switch (operator) {
@@ -71,7 +71,7 @@ public class ReportService {
         }
     }
 
-    // sql filter
+
     private List<Predicate> applyFilters(CriteriaBuilder cb, Root<?> root, List<Filter> filters) {
         List<Predicate> predicates = new ArrayList<>();
 
@@ -87,7 +87,7 @@ public class ReportService {
         return predicates;
     }
 
-    //getting the entity
+
     private Class<?> getEntityClass(String entityName) {
         try {
             String word = entityName.toUpperCase();
@@ -148,7 +148,6 @@ public class ReportService {
         Entity entity = entityRepository.findByEntityName(entityName);
         return entity.getDataBaseName().equals("Mongo");
 
-
     }
 
     public ResponseEntity<List<Document>> generateReport(Report reportRequest) {
@@ -202,19 +201,16 @@ public class ReportService {
             sqlResults = entityManager.createQuery(query).getResultList();
         }
 
-        // Convert SQL results to Documents for filtering
         for (Object sqlResult : sqlResults) {
             Document doc = new Document(convertToMap(sqlResult));
             resultDocuments.add(doc);
         }
 
-        // Apply additional filters on the Document list if needed
         List<Document> filteredDocuments = applyDocumentFilters(resultDocuments, reportRequest.getFilters());
 
         return ResponseEntity.ok(filteredDocuments);
     }
 
-    // Helper method to apply filters on Document list
     private List<Document> applyDocumentFilters(List<Document> documents, List<Filter> filters) {
         List<Document> filteredDocuments = new ArrayList<>(documents);
 
@@ -262,7 +258,6 @@ public class ReportService {
         throw new IllegalArgumentException("Values are not comparable: " + fieldValue + " and " + filterValue);
     }
 
-    //merging the primary data and the join data
     private List<Object> mergeResults(List<Object> primaryResults, List<?> joinResults, JoinRequest joinRequest) {
         List<Object> mergedResults = new ArrayList<>();
 
@@ -303,7 +298,6 @@ public class ReportService {
         return mergedResults;
     }
 
-    // Mongo join
     private List<Document> performMongoJoin(JoinRequest joinRequest, List<Object> sqlResults) {
         Query mongoQuery = new Query();
 
@@ -322,7 +316,6 @@ public class ReportService {
         return mongoTemplate.find(mongoQuery, Document.class, joinRequest.getEntityJoin().toLowerCase());
     }
 
-    //converting to map
     private Map<String, Object> convertToMap(Object result) {
         if (result instanceof Map) {
             return (Map<String, Object>) result;
@@ -333,7 +326,6 @@ public class ReportService {
         }
     }
 
-    //converting document to map
     private Map<String, Object> documentToMap(Document document) {
         return new HashMap<>(document);
     }
@@ -359,7 +351,6 @@ public class ReportService {
         return ResponseEntity.ok(results);
     }
 
-    // Helper method to create MongoDB criteria based on the filter
     private Criteria createMongoCriteria(Filter filter) {
         return switch (filter.getOperator().toUpperCase()) {
             case "=" -> Criteria.where(filter.getField()).is(filter.getValue());

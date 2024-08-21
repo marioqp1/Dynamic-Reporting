@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface EntityFieldsRepository extends MongoRepository<EntityField,String> {
-    String findByEntityNameAndFieldName(String entityName,String fieldName);
+    EntityField findByEntityNameAndFieldName(String entityName,String fieldName);
 
 }

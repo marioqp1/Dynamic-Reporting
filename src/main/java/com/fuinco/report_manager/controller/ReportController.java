@@ -1,12 +1,12 @@
 package com.fuinco.report_manager.controller;
 
-import com.fuinco.report_manager.service.ReportService;
 import com.fuinco.report_manager.dto.ApiResponse;
 import com.fuinco.report_manager.report.entity.Report;
-
+import com.fuinco.report_manager.service.ReportService;
 import org.bson.Document;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -42,11 +42,6 @@ public class ReportController {
     public List<Report> getAllReports() {
         return reportService.allReports();
     }
-
-//    @GetMapping("/entity/{entityName}")
-//    public ReportService.EntityMetadata metadata(@PathVariable String entityName) {
-//        return reportService.getEntityMetadata(entityName);
-//    }
 
 }
 

@@ -4,7 +4,6 @@ import com.fuinco.report_manager.report.entity.EntityField;
 import com.fuinco.report_manager.repository.EntityFieldsRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 @Service
 public class EntityFieldsService {
@@ -20,11 +19,8 @@ public class EntityFieldsService {
         }
         return f;
     }
-    public List<EntityField> findAll() {
-        return fieldsRepository.findAll();
-    }
     public String returnType(String entityName,String fieldName) {
-        return fieldsRepository.findByEntityNameAndFieldName(entityName, fieldName);
+        return fieldsRepository.findByEntityNameAndFieldName(entityName, fieldName).getFieldType();
     }
 
 }
